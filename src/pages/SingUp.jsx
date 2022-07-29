@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { db } from '../firebase.config'
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
@@ -46,7 +47,7 @@ const SingUp = () => {
 
       navigate('/')
     } catch ( error ) {
-      console.log(error)
+      toast.error('something went wrong')
     }
   }
 
