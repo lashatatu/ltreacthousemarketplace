@@ -17,7 +17,7 @@ const SingIn = () => {
   const navigate = useNavigate()
 
   const onChange = (e) => {
-    setShowPassword((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }))
