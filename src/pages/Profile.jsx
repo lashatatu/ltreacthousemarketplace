@@ -1,7 +1,9 @@
+import SignIn from './SignIn'
+
 const Profile = () => {
   return (
     <div>
-      Profile
+      <SignIn/>
     </div>
   )
 }
