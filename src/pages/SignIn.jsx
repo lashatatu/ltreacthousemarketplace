@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
+import Oauth from '../components/Oauth'
 
 const SingIn = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -25,18 +26,18 @@ const SingIn = () => {
     }))
   }
 
-  const onSubmit=async (e)=>{
+  const onSubmit = async (e) => {
 
     try {
       e.preventDefault()
 
-      const auth=getAuth()
-      const userCredential=await signInWithEmailAndPassword(auth,email,password)
+      const auth = getAuth()
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
 
-      if(userCredential.user){
+      if ( userCredential.user ) {
         navigate('/')
       }
-    }catch ( error ){
+    } catch ( error ) {
       toast.error('bad user credentials')
     }
 
@@ -85,12 +86,12 @@ const SingIn = () => {
                     fill='#ffffff'
                     width='34px'
                     height='34px'/>
-
                 </button>
               </div>
-
             </div>
           </form>
+
+          <Oauth/>
           <Link
             to={'/sing-up'}
             className='registerLink'>
