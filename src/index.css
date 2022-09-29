@@ -472,7 +472,6 @@ button {
 .loadMore {
   cursor: pointer;
   width: 8rem;
-  margin: 0 auto;
   text-align: center;
   padding: 0.25rem 0.5rem;
   background-color: #000000;
@@ -480,7 +479,7 @@ button {
   font-weight: 600;
   border-radius: 1rem;
   opacity: 0.7;
-  margin-top: 2rem;
+  margin: 2rem auto 0;
 }
 
 .listingDetails {
