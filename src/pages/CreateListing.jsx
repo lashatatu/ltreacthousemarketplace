@@ -79,7 +79,7 @@ const CreateListing = () => {
       boolean = false;
     }
 
-    // files
+    // filesa
 
     if (e.target.files) {
       setFormData((prevState) => ({
