@@ -6,6 +6,8 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -153,16 +155,31 @@ const CreateListing = () => {
       });
     };
 
-    const imageUrls=await Promise.all(
-      [...images].map((image)=>storeImage(image))
-    ).catch((error)=>{
-      setLoading(false);
-      toast.error(error.message);
+    const imageUrls = await Promise.all(
+      [...images].map((image) => storeImage(image))
+    ).catch(() => {
+      setLoading(false)
+      toast.error('Images not uploaded')
       return
     })
-    console.log(imageUrls);
+    const formDataCopy = {
+      ...formData,
+      imageUrls,
+      geolocation,
+      timestamp: serverTimestamp(),
+    };
+
+    delete formDataCopy.images;
+    delete formDataCopy.address;
+    location && (formDataCopy.location = location);
+    !formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
 
     setLoading(false);
+
+    toast.success("Listing created successfully");
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
 
   const onMutate = (e) => {
