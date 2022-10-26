@@ -21,7 +21,6 @@ const Listing = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log(docSnap.data());
         setListing(docSnap.data());
         setLoading(false);
       }
@@ -36,7 +35,8 @@ const Listing = () => {
 
   return (
     <main>
-      {/*slider*/}
+      {/* SLIDER */}
+
       <div
         className="shareIconDiv"
         onClick={() => {
@@ -50,7 +50,8 @@ const Listing = () => {
         <img src={shareIcon} alt="" />
       </div>
 
-      {shareLinkCopied && <p className={"linkCopied"}>Link Copied!</p>}
+      {shareLinkCopied && <p className="linkCopied">Link Copied!</p>}
+
       <div className="listingDetails">
         <p className="listingName">
           {listing.name} - $
@@ -62,9 +63,9 @@ const Listing = () => {
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
-        <p className={"listingLocation"}>{listing.location}</p>
-        <p className={"listingType"}>
-          For {listing.type === "rent" ? "Rent" : "sale"}
+        <p className="listingLocation">{listing.location}</p>
+        <p className="listingType">
+          For {listing.type === "rent" ? "Rent" : "Sale"}
         </p>
         {listing.offer && (
           <p className="discountPrice">
@@ -75,26 +76,26 @@ const Listing = () => {
         <ul className="listingDetailsList">
           <li>
             {listing.bedrooms > 1
-              ? `${listing.bedrooms} bedrooms`
-              : `${listing.bedrooms} bedroom`}
+              ? `${listing.bedrooms} Bedrooms`
+              : "1 Bedroom"}
           </li>
           <li>
             {listing.bathrooms > 1
-              ? `${listing.bathrooms} bathrooms`
-              : `${listing.bathrooms} bathroom`}
+              ? `${listing.bathrooms} Bathrooms`
+              : "1 Bathroom"}
           </li>
-          <li>{listing.parking ? "Parking Spot" : ""}</li>
-          <li>{listing.furnished ? "furnished" : ""}</li>
+          <li>{listing.parking && "Parking Spot"}</li>
+          <li>{listing.furnished && "Furnished"}</li>
         </ul>
 
         <p className="listingLocationTitle">Location</p>
 
-        {/*MAP*/}
+        {/* MAP */}
 
-        {auth.currentUser?.uid !== listing.userRef && (
+        {auth.currentUser?.uid !== listing.useRef && (
           <Link
-            to={`/contact/${listing.userRef}?listingName=${listing.name}`}
-            className={"primaryButton"}
+            to={`/contact/${listing.useRef}?listingName=${listing.name}&listingLocation=${listing.location}`}
+            className="primaryButton"
           >
             Contact Landlord
           </Link>
