@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import ListingItem from "../components/ListingItem";
 
-const Category = () => {
+function Category() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchedListing] = useState(null);
@@ -27,6 +27,7 @@ const Category = () => {
         // Get reference
         const listingsRef = collection(db, "listings");
 
+        // Create a query
         const q = query(
           listingsRef,
           where("type", "==", params.categoryName),
@@ -34,9 +35,12 @@ const Category = () => {
           limit(10)
         );
 
+        // Execute query
         const querySnap = await getDocs(q);
+
         const lastVisible = querySnap.docs[querySnap.docs.length - 1];
         setLastFetchedListing(lastVisible);
+
         const listings = [];
 
         querySnap.forEach((doc) => {
@@ -49,7 +53,7 @@ const Category = () => {
         setListings(listings);
         setLoading(false);
       } catch (error) {
-        toast.error("couldnt fetch listings");
+        toast.error("Could not fetch listings");
       }
     };
 
@@ -63,6 +67,7 @@ const Category = () => {
       // Get reference
       const listingsRef = collection(db, "listings");
 
+      // Create a query
       const q = query(
         listingsRef,
         where("type", "==", params.categoryName),
@@ -71,9 +76,12 @@ const Category = () => {
         limit(10)
       );
 
+      // Execute query
       const querySnap = await getDocs(q);
+
       const lastVisible = querySnap.docs[querySnap.docs.length - 1];
       setLastFetchedListing(lastVisible);
+
       const listings = [];
 
       querySnap.forEach((doc) => {
@@ -86,7 +94,7 @@ const Category = () => {
       setListings((prevState) => [...prevState, ...listings]);
       setLoading(false);
     } catch (error) {
-      toast.error("couldnt fetch listings");
+      toast.error("Could not fetch listings");
     }
   };
 
@@ -119,16 +127,16 @@ const Category = () => {
           <br />
           <br />
           {lastFetchedListing && (
-            <p className={"loadMore"} onClick={onFetchMoreListings}>
+            <p className="loadMore" onClick={onFetchMoreListings}>
               Load More
             </p>
           )}
         </>
       ) : (
-        <p>No Listings for {params.categoryName}</p>
+        <p>No listings for {params.categoryName}</p>
       )}
     </div>
   );
-};
+}
 
 export default Category;
