@@ -40,6 +40,10 @@ const Slider = () => {
     return <Spinner />;
   }
 
+  if(listings.length === 0) {
+    return <h1>No listings found</h1>
+  }
+
   return (
     listings && (
       <>
